@@ -4,15 +4,17 @@ using UnityEngine.AI;
 public class Player : MonoBehaviour
 {
     public float moveRadius = 20f;  // 이동 반경 ( 제자리만 맴돌거나 이동 범위가 작아지는 것을 방지)
+    public float baseSpeed = 3.5f; // 기본 속도
 
     private NavMeshAgent agent;
 
     private float timer;
-    public float waitTime = 2f;  // 목적지 도착 후 대기 시간a
+    public float waitTime = 2f;  // 목적지 도착 후 대기 시간
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        agent.speed = baseSpeed;
 
         timer = waitTime;
 

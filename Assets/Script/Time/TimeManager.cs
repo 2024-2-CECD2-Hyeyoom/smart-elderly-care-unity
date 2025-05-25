@@ -8,7 +8,6 @@ public class TimeManager : MonoBehaviour
     public static TimeManager Instance;
 
     public float timeScale = 60f; // 1초 = 1분
-    public bool isPaused = false;
 
     public DateTime virtualTime;
     public event Action<DateTime> OnTimeChanged;
@@ -22,14 +21,14 @@ public class TimeManager : MonoBehaviour
 
     void Start()
     {
-        virtualTime = new DateTime(2025, 5, 13, 0, 0, 0); // 시작 시간
+        virtualTime = new DateTime(2025, 5, 25, 0, 0, 0); // 시작 시간
     }
 
     void Update()
     {
-        if (isPaused) return;
+        float delta = Time.deltaTime;
 
-        timer += Time.deltaTime * timeScale;
+        timer += delta * timeScale;
 
         if (timer >= 60f)
         {
