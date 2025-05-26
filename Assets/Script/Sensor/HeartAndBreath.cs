@@ -40,7 +40,7 @@ public class HeartAndBreath : MonoBehaviour
             }
         }
 
-        DateTime now = TimeManager.Instance.virtualTime;
-        Debug.Log($"[{now:HH:mm:ss}] ½É¹Ú: {heartRate} bpm / È£Èí: {breathRate} rpm");
+        DateTime currentTime = TimeManager.Instance.virtualTime;
+        Debug.Log($"[{currentTime:HH:mm:ss}] ½É¹Ú: {heartRate} bpm / È£Èí: {breathRate} rpm");
     }
 }

@@ -12,6 +12,7 @@ public class TimeUIController : MonoBehaviour
     public Button speed1xButton;
     public Button speed2xButton;
     public Button speed5xButton;
+    public Button speed10xButton;
 
     void Start()
     {
@@ -21,6 +22,7 @@ public class TimeUIController : MonoBehaviour
         speed1xButton.onClick.AddListener(() => SetSpeed(1f));
         speed2xButton.onClick.AddListener(() => SetSpeed(2f));
         speed5xButton.onClick.AddListener(() => SetSpeed(5f));
+        speed10xButton.onClick.AddListener(() => SetSpeed(10f));
 
         UpdateTimeText(TimeManager.Instance.virtualTime);
     }

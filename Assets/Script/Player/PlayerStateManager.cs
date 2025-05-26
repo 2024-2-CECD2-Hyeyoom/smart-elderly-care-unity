@@ -27,7 +27,7 @@ public class PlayerStateManager : MonoBehaviour
         Debug.Log($"[Player State] {currentState}");
     }
 
-    public bool IsSleepinsg => currentState == PlayerState.Sleeping;
+    public bool IsSleeping => currentState == PlayerState.Sleeping;
     public bool IsOuting => currentState == PlayerState.Outing;
     public bool IsIdle => currentState == PlayerState.Active;
     
