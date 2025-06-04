@@ -14,6 +14,7 @@ public class Light : MonoBehaviour
 
     private float timer = 0f;
     public float recordInterval = 60f; // 60초마다 센서 기록 저장
+
     void Update()
     {
         UpdateNaturalLight();
@@ -53,14 +54,7 @@ public class Light : MonoBehaviour
         // 18시 이후 조명 켜짐
         if (now.Hour >= 18 || now.Hour < 8)
         {
-            if (stateManager.IsSleeping)
-            {
-                artificialLight = 0f; // 수면 중엔 조명 꺼짐
-            }
-            else
-            {
-                artificialLight = maxArtificialLight; // 조명 켜짐
-            }
+            artificialLight = stateManager.IsSleeping ? 0f : maxArtificialLight;
         }
         else
         {
@@ -72,6 +66,9 @@ public class Light : MonoBehaviour
     {
         float total = Mathf.Clamp(naturalLight + artificialLight, 0f, maxNaturalLight + maxArtificialLight);
         DateTime currentTime = TimeManager.Instance.virtualTime;
+        SensorDataSender.Instance.Send("조도", new List<float> { total }, currentTime);
+        // SensorDataSender.Instance.SaveToCSV("조도", new List<float> { total }, currentTime);
+
         Debug.Log($"[{currentTime:HH:mm:ss}] 총 조도: {total:F1} (자연광: {naturalLight:F1}, 조명: {artificialLight:F1})");
     }
 }

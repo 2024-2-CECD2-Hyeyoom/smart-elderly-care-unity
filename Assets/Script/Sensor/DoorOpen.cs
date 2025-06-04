@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,13 +21,21 @@ public class DoorOpen : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0f, 90f, 0f);
         doorOpen = true;
-        Debug.Log("¹® ¿­¸²");
+
+        DateTime openTime = TimeManager.Instance.virtualTime;
+        Debug.Log($"[{openTime:HH:mm:ss}] ¹® ¿­¸²");
+        SensorDataSender.Instance.Send("¹®¿­¸²", new List<float> { 1 }, openTime);
+        // SensorDataSender.Instance.SaveToCSV("¹®¿­¸²", new List<float> { 1 }, openTime);
 
         yield return new WaitForSeconds(openDelay);
 
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         doorOpen = false;
-        Debug.Log("¹® ´ÝÈû");
+
+        DateTime closeTime = TimeManager.Instance.virtualTime;
+        Debug.Log($"[{closeTime:HH:mm:ss}] ¹® ´ÝÈû");
+        SensorDataSender.Instance.Send("¹®´ÝÈû", new List<float> { 0 }, closeTime);
+        // SensorDataSender.Instance.SaveToCSV("¹®´ÝÈû", new List<float> { 0 }, closeTime);
     }
 }
 

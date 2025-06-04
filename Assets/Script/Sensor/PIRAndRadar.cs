@@ -35,13 +35,22 @@ public class PIRAndRadar : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= recordInterval)
         {
+            timer = 0f;
+
             DateTime currentTime = TimeManager.Instance.virtualTime;
-            Debug.Log($"[{currentTime:HH:mm:ss}] PIR (거실): {roomDistance["LivingRoom"]:F2} / Radar (침실): {roomDistance["BedRoom"]:F2}");
+
+            float livingRoomDistance = roomDistance["LivingRoom"] * 5;
+            float bedRoomDistance = roomDistance["BedRoom"] * 12;
+
+            Debug.Log($"[{currentTime:HH:mm:ss}] PIR (거실): {livingRoomDistance:F2} / Radar (침실): {bedRoomDistance:F2}");
+
+            SensorDataSender.Instance.Send("PIR활동", new List<float> { livingRoomDistance }, currentTime);
+            SensorDataSender.Instance.Send("레이더활동", new List<float> { bedRoomDistance }, currentTime);
+            // SensorDataSender.Instance.SaveToCSV("PIR활동", new List<float> { livingRoomDistance }, currentTime);
+            // SensorDataSender.Instance.SaveToCSV("레이더활동", new List<float> { bedRoomDistance }, currentTime);
 
             roomDistance["LivingRoom"] = 0f;
             roomDistance["BedRoom"] = 0f;
-
-            timer = 0f;
         }
     }
 

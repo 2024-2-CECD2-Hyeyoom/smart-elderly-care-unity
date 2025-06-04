@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public enum PlayerState
 {
     Active,
-    Sleeping,
+    Sleep,
     Outing
 }
 
@@ -16,6 +17,8 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerState currentState = PlayerState.Active;
     public string currentRoom = "None";
 
+    public event Action<PlayerState> OnStateChanged;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -23,12 +26,16 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void SetState(PlayerState newState)
     {
-        currentState = newState;
-        Debug.Log($"[Player State] {currentState}");
+        if (currentState != newState)
+        {
+            currentState = newState;
+            Debug.Log($"[Player State] {currentState}");
+            OnStateChanged?.Invoke(currentState);
+        }
     }
 
-    public bool IsSleeping => currentState == PlayerState.Sleeping;
+    public bool IsSleeping => currentState == PlayerState.Sleep;
     public bool IsOuting => currentState == PlayerState.Outing;
-    public bool IsIdle => currentState == PlayerState.Active;
+    public bool IsActive => currentState == PlayerState.Active;
     
 }

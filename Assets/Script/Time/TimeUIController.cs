@@ -13,6 +13,7 @@ public class TimeUIController : MonoBehaviour
     public Button speed2xButton;
     public Button speed5xButton;
     public Button speed10xButton;
+    public Button speed20xButton;
 
     void Start()
     {
@@ -23,13 +24,14 @@ public class TimeUIController : MonoBehaviour
         speed2xButton.onClick.AddListener(() => SetSpeed(2f));
         speed5xButton.onClick.AddListener(() => SetSpeed(5f));
         speed10xButton.onClick.AddListener(() => SetSpeed(10f));
+        speed20xButton.onClick.AddListener(() => SetSpeed(20f));
 
         UpdateTimeText(TimeManager.Instance.virtualTime);
     }
 
     void UpdateTimeText(DateTime time)
     {
-        timeText.text = time.ToString("HH:mm");
+        timeText.text = time.ToString("MM/dd HH:mm");
     }
 
     void TogglePause()
