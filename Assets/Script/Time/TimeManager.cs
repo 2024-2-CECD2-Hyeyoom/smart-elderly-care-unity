@@ -21,7 +21,7 @@ public class TimeManager : MonoBehaviour
 
     void Start()
     {
-        virtualTime = new DateTime(2025, 5, 25, 0, 0, 0); // 시작 시간
+        // virtualTime = DateTime.Now;
     }
 
     void Update()
@@ -38,5 +38,10 @@ public class TimeManager : MonoBehaviour
 
             OnTimeChanged?.Invoke(virtualTime);
         }
+    }
+    public void SetStartTime(DateTime startTime)
+    {
+        virtualTime = startTime;
+        Debug.Log($"시간 재설정: {virtualTime:yy:MM:dd HH:mm:ss}");
     }
 }
